@@ -1,0 +1,68 @@
+import java.util.*;
+import java.util.stream.*;
+
+class Employee {
+    String name;
+    int age;
+    double salary;
+
+    public Employee(String name, int age, double salary) {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{name='" + name + "', age=" + age + ", salary=" + salary + "}";
+    }
+}
+
+class Student {
+    String name;
+    double marks;
+
+    public Student(String name, double marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+}
+
+public class EmployeeSorter {
+    public static void main(String[] args) {
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("Alice", 30, 50000));
+        employees.add(new Employee("Bob", 25, 60000));
+        employees.add(new Employee("Charlie", 35, 55000));
+
+        // Sorting by name
+        employees.sort(Comparator.comparing(emp -> emp.name));
+        System.out.println("Sorted by Name:");
+        employees.forEach(System.out::println);
+
+        // Sorting by age
+        employees.sort(Comparator.comparingInt(emp -> emp.age));
+        System.out.println("\nSorted by Age:");
+        employees.forEach(System.out::println);
+
+        // Sorting by salary
+        employees.sort(Comparator.comparingDouble(emp -> emp.salary));
+        System.out.println("\nSorted by Salary:");
+        employees.forEach(System.out::println);
+
+        // Filtering and sorting students
+        List<Student> students = Arrays.asList(
+            new Student("Anuj", 80),
+            new Student("Roshan", 72),
+            new Student("Anshu", 90),
+            new Student("Annu", 76)
+        );
+
+        System.out.println("\nStudents scoring above 75%, sorted by marks:");
+        students.stream()
+                .filter(student -> student.marks > 75)
+                .sorted(Comparator.comparingDouble(student -> student.marks))
+                .map(student -> student.name)
+                .forEach(System.out::println);
+    }
+}
